@@ -1,0 +1,14 @@
+demo_hackathon:
+  outputs:
+    dev:
+      dataset: staging
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: /home/sruthi_thirunagari29/demo_hackathon/keys/dbt-datamodel-625bbcc5a7b7.json
+      location: US
+      method: service-account
+      priority: interactive
+      project: dbt-datamodel
+      threads: 4
+      type: bigquery
+  target: dev
