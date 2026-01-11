@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: staging
+    description: "Staging layer for Air India and SpiceJet data"
+    tables:
+      - name: Airindia_airport_details
+        description: "Staging table for Air India airport details"
+      - name: Spicejet_airport_details
+        description: "Staging table for SpiceJet airport details"
+
+      - name: Airindia_booking_details
+        description: "Staging table for Air India booking details"
+      - name: Spicejet_booking_details
+        description: "Staging table for SpiceJet booking details"
+
+      - name: Airindia_flight_details
+        description: "Staging table for Air India flight details"
+      - name: Spicejet_flight_details
+        description: "Staging table for SpiceJet flight details"
+
+      - name: Airindia_passenger_details
+        description: "Staging table for Air India passenger details"
+      - name: Spicejet_passenger_details
+        description: "Staging table for SpiceJet passenger details"
+
+      - name: Airindia_payment_details
+        description: "Staging table for Air India payment details"
+      - name: Spicejet_payment_details
+        description: "Staging table for SpiceJet payment details"

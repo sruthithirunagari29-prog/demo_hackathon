@@ -1,0 +1,248 @@
+version: 2
+
+models:
+  # -------------------
+  # HUBS
+  # -------------------
+  - name: payment_hub
+    description: "Hub table for payment business keys"
+    columns:
+      - name: payment_hk
+        tests: [not_null, unique]
+
+  - name: passenger_details_hub
+    description: "Hub table for passenger details"
+    columns:
+      - name: passenger_details_hk
+        tests: [not_null, unique]
+
+  - name: flight_details_hub
+    description: "Hub table for flight details"
+    columns:
+      - name: flight_details_hk
+        tests: [not_null, unique]
+
+  - name: booking_details_hub
+    description: "Hub table for booking details"
+    columns:
+      - name: booking_details_hk
+        tests: [not_null, unique]
+
+  - name: airport_details_hub
+    description: "Hub table for airport details"
+    columns:
+      - name: airport_details_hk
+        tests: [not_null, unique]
+
+  # -------------------
+  # LINKS
+  # -------------------
+  - name: bkg_payment_det_link
+    description: "Link between booking and payment"
+    columns:
+      - name: bkg_payment_det_lk_hk
+        tests: [not_null, unique]
+      - name: bookingid_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('booking_details_hub')
+                field: booking_details_hk
+      - name: paymentid_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('payment_hub')
+                field: payment_hk
+
+  - name: bkg_flight_pass_det_link
+    description: "Link between booking, flight, and passenger"
+    columns:
+      - name: bkg_flight_pass_det_lk_hk
+        tests: [not_null, unique]
+      - name: bookingid_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('booking_details_hub')
+                field: booking_details_hk
+      - name: flightid_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('flight_details_hub')
+                field: flight_details_hk
+      - name: passengerid_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('passenger_details_hub')
+                field: passenger_details_hk
+
+  - name: airport_flight_det_link
+    description: "Link between airport and flight"
+    columns:
+      - name: airport_flight_det_lk_hk
+        tests: [not_null, unique]
+      - name: flightid_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('flight_details_hub')
+                field: flight_details_hk
+      - name: originairportcode_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('airport_details_hub')
+                field: airport_details_hk
+      - name: destinationairportcode_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('airport_details_hub')
+                field: airport_details_hk
+
+  # -------------------
+  # SATELLITES (SpiceJet)
+  # -------------------
+  - name: payment_sat_spicejet
+    description: "Satellite for payment attributes (SpiceJet)"
+    columns:
+      - name: payment_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('payment_hub')
+                field: payment_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: passenger_details_sat_spicejet
+    description: "Satellite for passenger details (SpiceJet)"
+    columns:
+      - name: passenger_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('passenger_details_hub')
+                field: passenger_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: flight_details_sat_spicejet
+    description: "Satellite for flight details (SpiceJet)"
+    columns:
+      - name: flight_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('flight_details_hub')
+                field: flight_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: booking_details_sat_spicejet
+    description: "Satellite for booking details (SpiceJet)"
+    columns:
+      - name: booking_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('booking_details_hub')
+                field: booking_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: airport_details_sat_spicejet
+    description: "Satellite for airport details (SpiceJet)"
+    columns:
+      - name: airport_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('airport_details_hub')
+                field: airport_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  # -------------------
+  # SATELLITES (Air India)
+  # -------------------
+  - name: payment_sat_airindia
+    description: "Satellite for payment attributes (Air India)"
+    columns:
+      - name: payment_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('payment_hub')
+                field: payment_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: passenger_details_sat_airindia
+    description: "Satellite for passenger details (Air India)"
+    columns:
+      - name: passenger_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('passenger_details_hub')
+                field: passenger_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: flight_details_sat_airindia
+    description: "Satellite for flight details (Air India)"
+    columns:
+      - name: flight_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('flight_details_hub')
+                field: flight_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: booking_details_sat_airindia
+    description: "Satellite for booking details (Air India)"
+    columns:
+      - name: booking_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('booking_details_hub')
+                field: booking_details_hk
+      - name: hashdiff
+        tests: [not_null]
+
+  - name: airport_details_sat_airindia
+    description: "Satellite for airport details (Air India)"
+    columns:
+      - name: airport_details_hk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('airport_details_hub')
+                field: airport_details_hk
+      - name: hashdiff
+        tests: [not_null]
